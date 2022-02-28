@@ -1,0 +1,20 @@
+description: >
+  Build the artifact of a FastAPI application
+
+docker:
+  - image: cimg/python:3.10.2
+
+resource_class: small
+
+steps:
+  - checkout
+
+  - attach_workspace:
+      at: .
+
+  - run:
+      name: Run "make build"
+      command: |
+        # We'll just do an echo here for now since this job
+        # is just part of an example.
+        echo "Run 'make build' here"

@@ -1,0 +1,34 @@
+description: >
+  Dynamically generates the workflow for a FastAPI application that
+  is deployed to a k8s cluster.
+
+docker:
+  - image: cimg/base:stable-20.04
+
+resource_class: small
+
+steps:
+  - checkout
+
+  - attach_workspace:
+      at: .
+
+  - run:
+      name: Write the dynamic config to config.yml
+      command: |
+        cat > config.yml \<<EOF
+        ---
+        version: 2.1
+
+        orbs:
+          golden: evil-org/golden@1
+
+        workflows:
+          fastapi_k8s:
+            jobs:
+              - golden/unit_tests
+              - golden/build
+        EOF
+
+  - continuation/continue:
+      configuration_path: config.yml

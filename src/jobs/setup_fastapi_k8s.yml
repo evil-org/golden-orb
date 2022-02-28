@@ -7,6 +7,11 @@ docker:
 
 resource_class: small
 
+parameters:
+  project_name:
+    description: The name of the project being deployed
+    type: string
+
 steps:
   - checkout
 
@@ -26,9 +31,12 @@ steps:
         workflows:
           fastapi_k8s:
             jobs:
-              - golden/unit_tests
-              - golden/build
+              - golden/unit_tests:
+                  project_name: <<parameters.project_name>>
+              - golden/build:
+                  project_name: <<parameters.project_name>>
               - golden/deploy_fastapi_k8s:
+                  project_name: <<parameters.project_name>>
                   cluster: dev
                   requires:
                     - golden/unit_tests

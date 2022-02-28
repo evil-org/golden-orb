@@ -10,6 +10,9 @@ parameters:
   cluster:
     description: The k8s cluster to deploy to
     type: string
+  project_name:
+    description: The name of the project being deployed
+    type: string
 
 steps:
   - checkout
@@ -22,4 +25,4 @@ steps:
       command: |
         # We'll just do an echo here for now since this job
         # is just part of an example.
-        echo "Deploying to k8s cluster <<parameters.cluster>>"
+        echo "Deploying <<parameters.project_name>> to k8s cluster <<parameters.cluster>>"

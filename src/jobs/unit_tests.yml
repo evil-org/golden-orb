@@ -6,6 +6,11 @@ docker:
 
 resource_class: small
 
+parameters:
+  project_name:
+    description: The name of the project being deployed
+    type: string
+
 steps:
   - checkout
 
@@ -17,4 +22,4 @@ steps:
       command: |
         # We'll just do an echo here for now since this job
         # is just part of an example.
-        echo "Run pytests here"
+        echo "Run pytest for <<parameters.project_name>>"

@@ -28,6 +28,11 @@ steps:
             jobs:
               - golden/unit_tests
               - golden/build
+              - golden/deploy_fastapi_k8s:
+                  cluster: dev
+                  requires:
+                    - golden/unit_tests
+                    - golden/build
         EOF
 
   - continuation/continue:

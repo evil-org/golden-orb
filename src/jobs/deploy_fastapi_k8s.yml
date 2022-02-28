@@ -1,0 +1,25 @@
+description: >
+  Deploy a FastAPI application to a k8s cluster
+
+docker:
+  - image: cimg/python:3.10.2
+
+resource_class: small
+
+parameters:
+  cluster:
+    description: The k8s cluster to deploy to
+    type: string
+
+steps:
+  - checkout
+
+  - attach_workspace:
+      at: .
+
+  - run:
+      name: Deploy
+      command: |
+        # We'll just do an echo here for now since this job
+        # is just part of an example.
+        echo "Deploying to k8s cluster <<parameters.cluster>>"
